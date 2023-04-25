@@ -57,3 +57,15 @@ VALUES (
     'usuario@teste.com',
     '1q2w3e'
 );
+
+
+CREATE TABLE tb_shopping_cart (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    quantidade INT NOT NULL,
+    valor_total FLOAT NOT NULL,
+    endereco VARCHAR(100),
+    cliente VARCHAR(30) NOT NULL,
+    produto VARCHAR(30) NOT NULL,
+    criado_em VARCHAR(30) NOT NULL,
+    status VARCHAR(10)
+);

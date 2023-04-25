@@ -5,6 +5,10 @@ const repository = require('../../repository/abstractRepository');
 
 DateTime.local().setZone('America/Fortaleza');
 
+app.get('/url-teste', async (req, res) => {
+    res.send('ta funcionando');
+} );
+
 app.get('/customers', async (req, res) => {
     let data = await database.execute('SELECT * FROM tb_customer');
 

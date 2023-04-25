@@ -1,3 +1,6 @@
+const iconv = require('../../node_modules/mysql2/node_modules/iconv-lite/lib');
+iconv.encodingExists("foo");
+
 const mysql = require('mysql2/promise');
 const dotenv = require('dotenv');
 
@@ -15,7 +18,7 @@ async function connect() {
          password: USER_PASS,
          host: DB_HOST,
          database: DB_NAME,
-         timezone: 'America/Fortaleza',
+         timezone: '-03:00',
     });
 
     return con;
@@ -30,5 +33,6 @@ async function execute(sql) {
 }
 
 module.exports = {
-    execute
+    execute,
+    connect
 };

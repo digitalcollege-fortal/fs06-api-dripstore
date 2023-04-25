@@ -1,24 +1,38 @@
-function findAll() {
-    let dados = [
-        {
-            id: 123
-        }
-    ];
+const database = require('../../connection/database');
+const {DateTime} = require('luxon'); 
 
-    return dados;
+async function findAll() {
+    let dados = await database.execute('SELECT * FROM tb_shopping_cart');
+
+    return dados; 
 }
 
-function findOne(id) {
-    let dados = {
-        id: 123
-    };
+async function findOne(id) {
+    let dados = await database.execute(`SELECT * FROM tb_shopping_cart WHERE id='${id}'`);
 
-    return dados;
+    return dados[0];
 }
 
-function save(dados) {
-    //INSERT INTO tabela...
-    dados.id = 456;
+async function save(dados) {
+    let hoje = DateTime.now().toFormat('yyyy-MM-dd HH:mm:ss');
+
+    let query = `
+        INSERT INTO tb_shopping_cart 
+        (produto, cliente, endereco, valor_total, quantidade, criado_em)
+        VALUES
+        (
+            '${dados.produto}', 
+            '${dados.cliente}', 
+            '${dados.endereco}', 
+            '${dados.valor_total}', 
+            '${dados.quantidade}', 
+            '${hoje}'
+        )
+    `;
+
+    let resultado = await database.execute(query);
+
+    dados.id = resultado.insertId; //vai pegar o id que foi gerado no banco
 
     return dados;
 }
